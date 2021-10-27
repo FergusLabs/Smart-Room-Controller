@@ -4,7 +4,8 @@
  */
 
 int pirPin = 4;
-
+bool motionDetect;
+unsigned long currentTime, lastSecond;
 
 void setup() {
   pinMode(pirPin, INPUT);
@@ -14,5 +15,10 @@ void setup() {
 }
 
 void loop() {
-  
+  currentTime = millis();
+  motionDetect = digitalRead(pirPin);
+  if ((currentTime - lastSecond)>1000) {
+    lastSecond = millis();
+    Serial.printf("motion=%i\n",motionDetect);
+  }  
 }
