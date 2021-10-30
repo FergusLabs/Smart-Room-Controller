@@ -9,8 +9,9 @@ This project will be a 'Sunrise' alarm clock. It mimics the way that the sun gra
 
 This device will use the following components:
 
-*teensy3.2
-*Grove 4 Digit Display
+* teensy3.2
+* Grove 4 Digit Display
+*
 
 ## Summary
 
