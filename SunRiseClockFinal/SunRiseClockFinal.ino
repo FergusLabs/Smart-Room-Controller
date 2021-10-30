@@ -25,8 +25,8 @@
 #define CLK 20 //pins for 4 digit display
 #define DIO 21
 
-int alarmHours = 14;      // THIS IS WHERE I SET THE ALARM TIME! 24 HOUR CLOCK. 
-int alarmMinutes = 48;    // I would like to set the alarm with a button, but I did not have a chance to code it yet.
+int alarmHours = 15;      // THIS IS WHERE I SET THE ALARM TIME! 24 HOUR CLOCK. 
+int alarmMinutes = 11;    // I would like to set the alarm with a button, but I did not have a chance to code it yet.
 
 const int pinA = 7, pinB = 8, encButtonPin = 14, wemoButtonPin =2, timeSetPin = 3;   //pins for encoder and buttons
 
@@ -45,7 +45,7 @@ const int toneFreq = 528;
 bool motionSeen, mode, audioOn, sunRiseOn, wemoOn;
 int encPstn;  //encoder position
 int hueSelect;
-int wemoCoffee = 2, wemoTV = 1;
+int wemoCoffee = 2, wemoHeat = 1;
  
 unsigned long currentTime, lastSecond, sunRiseTimer, sunRiseElapsed;
 
@@ -134,7 +134,7 @@ void manualMode (void) {
     display.setTextSize(1);
     display.setTextColor(SSD1306_WHITE);
     display.setCursor(0, 50);
-    display.printf("You're up? \n Good Job. \n Everything is on manual.");
+    display.printf("Manual Mode on.\n Brightness=%n", manLUX);
     display.display();
     sunRiseOn = false;
     
@@ -182,7 +182,7 @@ void sunRiseLite (void) {
       display.clearDisplay();
       display.setTextSize(1);
       display.setTextColor(SSD1306_WHITE);
-      display.setCursor(0, 0);
+      display.setCursor(0, 30);
       display.printf("GOOD MORNING SUNSHINE!");
       display.display();
       earlyLUX = map(sunRiseElapsed, 0, 420000, 1, 55);
@@ -215,11 +215,11 @@ void click2 (void) {  //
 void outletControl (void) {
   if (wemoOn) {  
     switchON (wemoCoffee);
-    switchON (wemoTV);
+    switchON (wemoHeat);
   }
   if (!wemoOn) {
     switchOFF (wemoCoffee);
-    switchOFF (wemoTV);
+    switchOFF (wemoHeat);
   }
 }
 
@@ -242,7 +242,7 @@ void audioAlarm (void) {
       display.clearDisplay();
       display.setTextSize(2);
       display.setTextColor(SSD1306_WHITE);
-      display.setCursor(0, 50);
+      display.setCursor(0, 30);
       display.printf("GET UP! I WARNED YOU.");
       display.startscrollleft(0x00, 0x0F);
       display.display();;
