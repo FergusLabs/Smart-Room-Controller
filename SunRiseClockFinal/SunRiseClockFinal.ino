@@ -21,9 +21,12 @@
 #define SCREEN_WIDTH 128    //constants for OLED
 #define SCREEN_HEIGHT 64
 #define SCREEN_ADDRESS 0x3C
-#define BME_ADDRESS 0x76
+
 #define CLK 20 //pins for 4 digit display
 #define DIO 21
+
+int alarmHours = 14;      // THIS IS WHERE I SET THE ALARM TIME! 24 HOUR CLOCK. 
+int alarmMinutes = 48;    // I would like to set the alarm with a button, but I did not have a chance to code it yet.
 
 const int pinA = 7, pinB = 8, encButtonPin = 14, wemoButtonPin =2, timeSetPin = 3;   //pins for encoder and buttons
 
@@ -44,11 +47,7 @@ int encPstn;  //encoder position
 int hueSelect;
 int wemoCoffee = 2, wemoTV = 1;
  
-
 unsigned long currentTime, lastSecond, sunRiseTimer, sunRiseElapsed;
-
-int alarmHours = 15;
-int alarmMinutes = 28;
 
 int8_t TimeDisp[] = {0x00, 0x00, 0x00, 0x00};
 unsigned char ClockPoint = 1;
@@ -132,11 +131,10 @@ void loop() {
 void manualMode (void) {
   if (mode) {
     display.clearDisplay();
-    display.setTextSize(2);
+    display.setTextSize(1);
     display.setTextColor(SSD1306_WHITE);
     display.setCursor(0, 50);
-    display.printf("You're up? Good Job. Everything is on manual.");
-    display.startscrollleft(0x00, 0x0F);
+    display.printf("You're up? \n Good Job. \n Everything is on manual.");
     display.display();
     sunRiseOn = false;
     
@@ -182,11 +180,10 @@ void sunRiseLite (void) {
     sunRiseElapsed = ((currentTime) - (sunRiseTimer));
     if (sunRiseElapsed < 420000) {
       display.clearDisplay();
-      display.setTextSize(2);
+      display.setTextSize(1);
       display.setTextColor(SSD1306_WHITE);
-      display.setCursor(0, 50);
+      display.setCursor(0, 0);
       display.printf("GOOD MORNING SUNSHINE!");
-      display.startscrollleft(0x00, 0x0F);
       display.display();
       earlyLUX = map(sunRiseElapsed, 0, 420000, 1, 55);
       for (hueSelect = 0; hueSelect < 6; hueSelect++) {
@@ -195,11 +192,10 @@ void sunRiseLite (void) {
     }
     if (sunRiseElapsed > 420000) {
       display.clearDisplay();
-      display.setTextSize(2);
+      display.setTextSize(1);
       display.setTextColor(SSD1306_WHITE);
       display.setCursor(0, 50);
-      display.printf("GET OUT OF BED OR I WILL SCREAM!");
-      display.startscrollleft(0x00, 0x0F);
+      display.printf("GET OUT OF BED!");
       display.display();
       lateLUX = map(sunRiseElapsed, 420000, 600000, 10, 255);
       for (hueSelect = 0; hueSelect < 6; hueSelect++) {
@@ -257,7 +253,7 @@ void audioAlarm (void) {
   }
 }
 
-void OLEDClockDisplay(void) { //not using this funtion, but this prints the time to the OLED
+void OLEDClockDisplay(void) { 
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(SSD1306_WHITE);
