@@ -25,7 +25,7 @@
 #define CLK 20 //pins for 4 digit display
 #define DIO 21
 
-const int pinA = 7, pinB = 8, encButtonPin = 14, wemoButtonPin =17, timeSetPin = 20;   //pins for encoder and buttons
+const int pinA = 7, pinB = 8, encButtonPin = 14, wemoButtonPin =2, timeSetPin = 3;   //pins for encoder and buttons
 
 OneButton encButton (encButtonPin, INPUT_PULLUP);
 OneButton wemoButton (wemoButtonPin, INPUT_PULLUP);
@@ -209,10 +209,10 @@ void sunRiseLite (void) {
   }
 }
 
-void click1 (void) {
+void click1 (void) {  //encoder button click
   mode = !mode;
 }
-void click2 (void) {
+void click2 (void) {  //
   wemoOn = !wemoOn;
 }
 
