@@ -25,8 +25,8 @@
 #define CLK 20 //pins for 4 digit display
 #define DIO 21
 
-int alarmHours = 8;      // THIS IS WHERE I SET THE ALARM TIME! 24 HOUR CLOCK. 
-int alarmMinutes = 40;    // I would like to set the alarm with a button, but I did not have a chance to code it yet.
+int alarmHours = 9;      // THIS IS WHERE I SET THE ALARM TIME! 24 HOUR CLOCK. 
+int alarmMinutes = 56;    // I would like to set the alarm with a button, but I did not have a chance to code it yet.
 
 const int pinA = 7, pinB = 8, encButtonPin = 14, wemoButtonPin =2, timeSetPin = 3;   //pins for encoder and buttons
 
@@ -126,6 +126,7 @@ void loop() {
   motionDetect();
   manualMode();
   audioAlarm();
+  outletControl();
 }
 
 void manualMode (void) {
